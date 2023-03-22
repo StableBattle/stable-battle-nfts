@@ -1,6 +1,5 @@
 import * as fs from "fs";
 import * as arKey from "../arweave_key.json";
-import * as NFTsJson from "../NFTs.json";
 import md5File from "md5-file";
 import Bundlr from "@bundlr-network/client";
 
@@ -158,9 +157,9 @@ function updateNFTsJson(
 
 function parseJSONAsNFT() : NFTInterface[] {
   let NFTs : NFTInterface[] = [];
-  let jsonNFT = NFTsJson;
-  for(const nft of jsonNFT) {
-    const NFT = {
+  const jsonNFTs = JSON.parse(fs.readFileSync("./NFTs.json").toString());
+  for(const nft of jsonNFTs) {
+    const NFT : NFTInterface = {
       name: nft.name,
       updated: nft.updated,
       image350: nft.image350,
