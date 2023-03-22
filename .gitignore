@@ -1,0 +1,4 @@
+node_modules
+yarn.lock
+arweave_key.json
+.DS_Store
