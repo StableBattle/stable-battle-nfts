@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "upload": "npx ts-node scripts/uploadToArweave.ts",
+    "upload": "npx ts-node scripts/updateArweaveNFTs.ts",
     "balance": "npx ts-node scripts/checkBundlrNodeBalance.ts",
     "withdraw": "npx ts-node scripts/withdrawFromBundlrNode.ts"
   },

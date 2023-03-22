@@ -152,7 +152,7 @@ function updateNFTsJson(
       console.log(`Updated ${filesToUpload[i].file} info in ${filesToUpload[i].file} NFT`)
     }
   }
-  fs.writeFileSync("NFTs.json", JSON.stringify(newNFTs, null, "\t"), { flag: 'w' });
+  fs.writeFileSync("NFTs.json", JSON.stringify(newNFTs, null, 2), { flag: 'w' });
 }
 
 function parseJSONAsNFT() : NFTInterface[] {
