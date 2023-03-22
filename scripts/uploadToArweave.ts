@@ -30,7 +30,7 @@ export default async function updateArweaveNFTs() {
 }
 
 function findNFTsToUpload() {
-  const oldNFTs : NFTInterface[] = NFTsJson;
+  const oldNFTs : NFTInterface[] = parseJSONAsNFT();
   let filesToUpload : {folder: string; file: string;}[] = []
   const nftFolders = fs.readdirSync("./NFTs/").filter(item => item[0] != ".");
   for(const nftFolder of nftFolders) {
@@ -39,10 +39,10 @@ function findNFTsToUpload() {
     for(const nftFile of nftFiles) {
       const md5_hash = md5File.sync(`./NFTs/${nftFolder}/${nftFile}`);
       if(!oldNFT ||
-        (nftFile.slice(-7, -4) == "350" && md5_hash != oldNFT.image350.md5_hash) ||
-        (nftFile.slice(-7, -4) == "512" && md5_hash != oldNFT.image512.md5_hash) ||
-        (nftFile.slice(-8, -4) == "3000" && md5_hash != oldNFT.image3000.md5_hash) ||
-        (nftFile.slice(-3) == "mp4" && md5_hash != oldNFT.animation.md5_hash))
+        (nftFile.slice(-7, -4) == "350" && (!oldNFT.image350 || md5_hash != oldNFT.image350.md5_hash)) ||
+        (nftFile.slice(-7, -4) == "512" && (!oldNFT.image512 || md5_hash != oldNFT.image512.md5_hash)) ||
+        (nftFile.slice(-8, -4) == "3000" && (!oldNFT.image3000 || md5_hash != oldNFT.image3000.md5_hash)) ||
+        (nftFile.slice(-3) == "mp4" && (!oldNFT.animation || md5_hash != oldNFT.animation.md5_hash)))
       {
         filesToUpload.push({folder: nftFolder, file: nftFile});
       }
@@ -72,14 +72,23 @@ async function uploadFilesToArweave(filesToUpload : {folder: string; file: strin
 			// 	target, // the address the funds were sent to
 			// };
 			const response = await bundlr.fund(uploadPrice);
-			console.log(`Funding successful txID=${response.id} amount funded=${response.quantity}`);
+			console.log(`Funding successful txID=${response.id} amount funded=${bundlr.utils.unitConverter(response.quantity)}`);
 		} catch (e) {
 			console.log("Error funding node ", e);
 		}
 	}
+
   for(const fileToUpload of filesToUpload) {
     let ar_hash = "none";
     try {
+      const tags = 
+        fileToUpload.file.slice(-7, -4) == "350" || 
+        fileToUpload.file.slice(-7, -4) == "512" || 
+        fileToUpload.file.slice(-8, -4) == "3000" 
+          ? [{name: "Content-Type", value: "image/png"}] :
+        fileToUpload.file.slice(-3) == "mp4"
+          ? [{name: "Content-Type", value: "video/mp4"}] : 
+        []
       const response = await bundlr.uploadFile(`./NFTs/${fileToUpload.folder}/${fileToUpload.file}`); // Returns an axios response
       console.log(`${fileToUpload.file} file of NFT ${fileToUpload.folder} uploaded ==> https://arweave.net/${response.id}`);
       ar_hash = response.id;
@@ -95,17 +104,15 @@ function updateNFTsJson(
   filesToUpload : {folder: string; file: string;}[],
   newArHashes : string[]
 ) {
-  let newNFTs : NFTInterface[] = NFTsJson;
+  let newNFTs : NFTInterface[] = parseJSONAsNFT();
   for(let i = 0; i < filesToUpload.length; i++) {
     if(newArHashes[i] != "none") {
       const nftItem = filesToUpload[i];
-      let index = newNFTs.findIndex(nft => nft.name == nftItem.folder);
-      if (index == -1) {
-        let NFT : NFTInterface = {name: nftItem.folder, updated: Date.now()}
-        newNFTs.push(NFT);
-        index = newNFTs.length - 1;
+      let index = newNFTs.findIndex(nft => nft.name == nftItem.file)
+      if(index == -1) {
+        index = newNFTs.length;
+        newNFTs.push({name: nftItem.folder, updated: Date.now()})
       }
-
       newNFTs[index].updated = Date.now();
       if(nftItem.file.slice(-7, -4) == "350") {
         newNFTs[index].image350 = {
@@ -147,6 +154,23 @@ function updateNFTsJson(
     }
   }
   fs.writeFileSync(`NFTs.json`, JSON.stringify(newNFTs), { flag: 'w' });
+}
+
+function parseJSONAsNFT() : NFTInterface[] {
+  let NFTs : NFTInterface[] = [];
+  let jsonNFT = NFTsJson;
+  for(const nft of jsonNFT) {
+    const NFT = {
+      name: nft.name,
+      updated: nft.updated,
+      image350: nft.image350,
+      image512: nft.image512,
+      image3000: nft.image3000,
+      animation: nft.animation
+    }
+    NFTs.push(NFT);
+  } 
+  return NFTs;
 }
 
 updateArweaveNFTs();
