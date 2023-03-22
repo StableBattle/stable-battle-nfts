@@ -55,11 +55,11 @@ async function uploadFilesToArweave(filesToUpload : {folder: string; file: strin
   const bundlr = new Bundlr("http://node1.bundlr.network", "arweave", arKey);
   const fileSizeTotal : number = filesToUpload.reduce((result, nft) => {
     return result + fs.statSync(`./NFTs/${nft.folder}/${nft.file}`).size;
-  }, 0);
+  }, <number>0);
   const uploadPrice = await bundlr.getPrice(fileSizeTotal);
-  console.log(`Uploading updated NFTs to Bundlr will cost ${bundlr.utils.unitConverter(fileSizeTotal)}`);
+  console.log(`Uploading updated NFTs to Bundlr will cost ${uploadPrice} atomic`);
   const nodeBalance = await bundlr.getLoadedBalance();
-  console.log(`Node balance = ${bundlr.utils.unitConverter(nodeBalance)}`);
+  console.log(`Node balance = ${nodeBalance} atomic`);
   if (nodeBalance < uploadPrice) {
 		console.log("Funding wallet--->");
 		// Fund the node, give it enough so you can upload a full size
@@ -71,7 +71,7 @@ async function uploadFilesToArweave(filesToUpload : {folder: string; file: strin
 			// 	target, // the address the funds were sent to
 			// };
 			const response = await bundlr.fund(uploadPrice);
-			console.log(`Funding successful txID=${response.id} amount funded=${bundlr.utils.unitConverter(response.quantity)}`);
+			console.log(`Funding successful txID=${response.id} amount funded=${response.quantity}`);
 		} catch (e) {
 			console.log("Error funding node ", e);
 		}
@@ -107,7 +107,7 @@ function updateNFTsJson(
   for(let i = 0; i < filesToUpload.length; i++) {
     if(newArHashes[i] != "none") {
       const nftItem = filesToUpload[i];
-      let index = newNFTs.findIndex(nft => nft.name == nftItem.file)
+      let index = newNFTs.findIndex(nft => nft.name == nftItem.folder)
       if(index == -1) {
         index = newNFTs.length;
         newNFTs.push({name: nftItem.folder, updated: Date.now()})
@@ -152,7 +152,7 @@ function updateNFTsJson(
       console.log(`Updated ${filesToUpload[i].file} info in ${filesToUpload[i].file} NFT`)
     }
   }
-  fs.writeFileSync(`NFTs.json`, JSON.stringify(newNFTs), { flag: 'w' });
+  fs.writeFileSync("NFTs.json", JSON.stringify(newNFTs, null, "\t"), { flag: 'w' });
 }
 
 function parseJSONAsNFT() : NFTInterface[] {
