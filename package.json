@@ -7,7 +7,6 @@
   "dependencies": {
     "@bundlr-network/client": "^0.10.5",
     "@types/node": "^18.15.3",
-    "arweave": "^1.13.3",
     "md5-file": "^5.0.0",
     "ts-node": "^10.9.1",
     "typescript": "^5.0.2"
