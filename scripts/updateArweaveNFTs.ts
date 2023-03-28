@@ -22,8 +22,15 @@ interface NFTInterface {
 
 export default async function updateArweaveNFTs() {
   const filesToUpload = findNFTsToUpload();
-  console.log(filesToUpload);
+  if (filesToUpload.length == 0) {
+    console.log("No new files to upload");
+    return;
+  } else {
+    console.log("Files to be uploaded:")
+    console.log(filesToUpload);
+  }
   const newArHashes : string[] = await uploadFilesToArweave(filesToUpload);
+  console.log("Arweave hashes for the uploaded files:")
   console.log(newArHashes);
   updateNFTsJson(filesToUpload, newArHashes);
 }
@@ -71,7 +78,13 @@ async function uploadFilesToArweave(filesToUpload : {folder: string; file: strin
 			// 	target, // the address the funds were sent to
 			// };
 			const response = await bundlr.fund(uploadPrice);
-			console.log(`Funding successful txID=${response.id} amount funded=${response.quantity}`);
+			console.log(`Funding pending txID=${response.id} amount funded=${response.quantity}`);
+      console.log("Waiting for funding to be confirmed it might take a 5-10 minutes...");
+      while(nodeBalance < await bundlr.getLoadedBalance()) {
+        // Wait for the transaction to be mined
+        await new Promise(r => setTimeout(r, 60 * 1000));
+      }
+      console.log("Funding confirmed!");
 		} catch (e) {
 			console.log("Error funding node ", e);
 		}
@@ -157,18 +170,22 @@ function updateNFTsJson(
 
 function parseJSONAsNFT() : NFTInterface[] {
   let NFTs : NFTInterface[] = [];
-  const jsonNFTs = JSON.parse(fs.readFileSync("./NFTs.json").toString());
-  for(const nft of jsonNFTs) {
-    const NFT : NFTInterface = {
-      name: nft.name,
-      updated: nft.updated,
-      image350: nft.image350,
-      image512: nft.image512,
-      image3000: nft.image3000,
-      animation: nft.animation
-    }
-    NFTs.push(NFT);
-  } 
+  try {
+    const jsonNFTs = JSON.parse(fs.readFileSync("./NFTs.json").toString());
+    for(const nft of jsonNFTs) {
+      const NFT : NFTInterface = {
+        name: nft.name,
+        updated: nft.updated,
+        image350: nft.image350,
+        image512: nft.image512,
+        image3000: nft.image3000,
+        animation: nft.animation
+      }
+      NFTs.push(NFT);
+    } 
+  } catch (error) {
+    throw new Error("JSON file could not be parsed as NFT data.");
+  }
   return NFTs;
 }
 

@@ -226,13 +226,6 @@
   {
     "name": "Summoner_Avenger",
     "updated": 1679566435055,
-    "image3000": {
-      "md5_hash": "2a8dbc69d951b5cfbe2270783e237b15",
-      "ar_hash": "CvzZKx1R2AbqrvZpp8Sva8aDPjL7IPfrgs1aG3xTMxs",
-      "ar_link": "ar://CvzZKx1R2AbqrvZpp8Sva8aDPjL7IPfrgs1aG3xTMxs",
-      "http_link": "https://arweave.net/CvzZKx1R2AbqrvZpp8Sva8aDPjL7IPfrgs1aG3xTMxs",
-      "updated": 1679566435052
-    },
     "image350": {
       "md5_hash": "9cca33bf79fa0334cfe94398467a6248",
       "ar_hash": "C7FgpRSERcuUnfsRCT3cLHZAumD4ySg8KmrIkb1r6pE",
@@ -247,6 +240,13 @@
       "http_link": "https://arweave.net/tnD9nq6vQlymbKf9IuDtHd7aiLewgJm4COvYw6bt1RE",
       "updated": 1679566435055
     },
+    "image3000": {
+      "md5_hash": "2a8dbc69d951b5cfbe2270783e237b15",
+      "ar_hash": "CvzZKx1R2AbqrvZpp8Sva8aDPjL7IPfrgs1aG3xTMxs",
+      "ar_link": "ar://CvzZKx1R2AbqrvZpp8Sva8aDPjL7IPfrgs1aG3xTMxs",
+      "http_link": "https://arweave.net/CvzZKx1R2AbqrvZpp8Sva8aDPjL7IPfrgs1aG3xTMxs",
+      "updated": 1679566435052
+    },
     "animation": {
       "md5_hash": "5ee2d2c3fc2bc825ae0be9a614bce9ff",
       "ar_hash": "IcKwGxAQ653U_OqafQUJOyY9WjApBDKWHuMykLGZt64",
@@ -258,13 +258,6 @@
   {
     "name": "Summoner_Dominator",
     "updated": 1679566435182,
-    "image3000": {
-      "md5_hash": "d8ea7559e5889f60504da45db7413932",
-      "ar_hash": "NxNllIKxXNBgnCA54gwKGfUezIDOalyiuLRE3wCPaws",
-      "ar_link": "ar://NxNllIKxXNBgnCA54gwKGfUezIDOalyiuLRE3wCPaws",
-      "http_link": "https://arweave.net/NxNllIKxXNBgnCA54gwKGfUezIDOalyiuLRE3wCPaws",
-      "updated": 1679566435180
-    },
     "image350": {
       "md5_hash": "f0c345d42e25cb6b90fc4cdb6d211867",
       "ar_hash": "ryFf7bE-Q78GR3nnfCK7AEgI7Gou02dVtT1PMD1IfU8",
@@ -279,6 +272,13 @@
       "http_link": "https://arweave.net/Jf71DB1XzkUSLhm6Kyc4AHslUkEfK6Wnc6Nf8vCEDdE",
       "updated": 1679566435182
     },
+    "image3000": {
+      "md5_hash": "d8ea7559e5889f60504da45db7413932",
+      "ar_hash": "NxNllIKxXNBgnCA54gwKGfUezIDOalyiuLRE3wCPaws",
+      "ar_link": "ar://NxNllIKxXNBgnCA54gwKGfUezIDOalyiuLRE3wCPaws",
+      "http_link": "https://arweave.net/NxNllIKxXNBgnCA54gwKGfUezIDOalyiuLRE3wCPaws",
+      "updated": 1679566435180
+    },
     "animation": {
       "md5_hash": "b48d35fe283e83965d8b14e422cee043",
       "ar_hash": "p5EeNbUeJvaWBRWXcaZ7PQXcSV46LJBYmQpzY2wJooM",
@@ -290,13 +290,6 @@
   {
     "name": "Summoner_Grunt",
     "updated": 1679566435316,
-    "image3000": {
-      "md5_hash": "1db335531227c22d627aec400ed02110",
-      "ar_hash": "4wfgakK_gGpmQ_czH2QnRMumzgcPPbZ7s6RCXZ2RqLA",
-      "ar_link": "ar://4wfgakK_gGpmQ_czH2QnRMumzgcPPbZ7s6RCXZ2RqLA",
-      "http_link": "https://arweave.net/4wfgakK_gGpmQ_czH2QnRMumzgcPPbZ7s6RCXZ2RqLA",
-      "updated": 1679566435314
-    },
     "image350": {
       "md5_hash": "f6627fef0c5136aed2aa7d0cde063d2d",
       "ar_hash": "vWFyKU_6pdr0xTAXs42RXt4jm2rm7hylewjQHDhFoQQ",
@@ -310,6 +303,13 @@
       "ar_link": "ar://sehIlJRJLPXEbHVpa5l91dIaxHvXNmO_ZQCNeCR4ykE",
       "http_link": "https://arweave.net/sehIlJRJLPXEbHVpa5l91dIaxHvXNmO_ZQCNeCR4ykE",
       "updated": 1679566435316
+    },
+    "image3000": {
+      "md5_hash": "1db335531227c22d627aec400ed02110",
+      "ar_hash": "4wfgakK_gGpmQ_czH2QnRMumzgcPPbZ7s6RCXZ2RqLA",
+      "ar_link": "ar://4wfgakK_gGpmQ_czH2QnRMumzgcPPbZ7s6RCXZ2RqLA",
+      "http_link": "https://arweave.net/4wfgakK_gGpmQ_czH2QnRMumzgcPPbZ7s6RCXZ2RqLA",
+      "updated": 1679566435314
     },
     "animation": {
       "md5_hash": "98bbc169def752cfdbce7d93242f1972",
